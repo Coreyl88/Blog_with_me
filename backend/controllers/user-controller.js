@@ -31,6 +31,7 @@ export const register = async (req, res, next) => {
         name,
         email,
         password: hashedPassword,
+        blogs: [],
     });
     
     try {

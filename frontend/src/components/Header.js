@@ -2,9 +2,11 @@ import React from 'react'
 import { AppBar, Typography, Toolbar, Box, Button, Tabs, Tab } from '@mui/material'
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { authActions } from '../store';
 
 const Header = () => {
+  const dispath = useDispatch();
   const isLoggedIn = useSelector(state=>state.isLoggedIn);
 
   const [value, setValue] = useState();
@@ -26,26 +28,36 @@ const Header = () => {
 
           { !isLoggedIn && <>
           <Button 
-          LinkComponent={Link} 
-          to="/auth" 
-          variant= "contained" 
-          sx={{margin: 1, borderRadius: 10}} 
-          color="primary"
-          >Login
+            LinkComponent={Link} 
+            to="/auth" 
+            variant= "contained" 
+            sx={{margin: 1, borderRadius: 10}} 
+            color="primary"
+            >Login
           </Button>
 
           <Button 
-          LinkComponent={Link} 
-          to="/auth" 
-          variant= "contained" 
-          sx={{margin: 1, borderRadius: 10}} 
-          color="primary"
-          >Register
+            LinkComponent={Link} 
+            to="/auth" 
+            variant= "contained" 
+            sx={{margin: 1, borderRadius: 10}} 
+            color="primary"
+            >Register
           </Button>
           </>}
 
-          { isLoggedIn && 
-          <Button variant= "contained" sx={{margin: 1, borderRadius: 10}} color="primary">Logout</Button>}
+          { isLoggedIn && (
+          <Button
+            onClick={()=>dispatchEvent(authActions.logout())}
+            LinkComponent={Link}
+            to="/auth"
+            variant= "contained" 
+            sx={{margin: 1, borderRadius: 10}} 
+            color="primary"
+          >
+            Logout
+          </Button>
+          )}
         </Box>
       </Toolbar>  
     </AppBar>

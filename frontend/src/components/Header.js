@@ -48,7 +48,7 @@ const Header = () => {
 
           { isLoggedIn && (
           <Button
-            onClick={()=>dispatchEvent(authActions.logout())}
+            onClick={()=>dispath(authActions.logout())}
             LinkComponent={Link}
             to="/auth"
             variant= "contained" 

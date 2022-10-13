@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar, Card, CardContent, CardHeader, CardMedia, Typography } from '@mui/material';
 import '../App.css';
 
-const Blog = ({title,description,imageURL,userName}) => {
+const Blog = ({title,description,image,userName}) => {
   return (
     <div>
         {" "}
@@ -28,7 +28,7 @@ const Blog = ({title,description,imageURL,userName}) => {
             <CardMedia
             component="img"
             height="194"
-            image={imageURL}
+            image={image}
             alt="Paella dish"
             />
             <CardContent>

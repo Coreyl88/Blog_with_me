@@ -21,12 +21,14 @@ const Header = () => {
           <Tabs textColor="inherit" value={value} onChange={(e, val)=>setValue(val)}>
             <Tab LinkComponent={Link} to="/blogs" label="Blogs"/>
             <Tab LinkComponent={Link} to="/myBlogs" label="My Blogs"/>
+            <Tab LinkComponent={Link} to="/blogs/create" label="Create Blogs"/>
           </Tabs>
         </Box>}
 
         <Box display="flex" marginLeft="auto">
 
-          { !isLoggedIn && <>
+          { !isLoggedIn &&
+          <>
           <Button 
             LinkComponent={Link} 
             to="/auth" 

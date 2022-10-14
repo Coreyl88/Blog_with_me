@@ -1,8 +1,28 @@
 import React from 'react'
-import { Avatar, Card, CardContent, CardHeader, CardMedia, Typography } from '@mui/material';
-import '../App.css';
+import { Avatar, Card, CardContent, CardHeader, CardMedia, Typography, Box, IconButton } from '@mui/material';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const Blog = ({title,description,image,userName}) => {
+const Blog = ({ title, description, image, userName, isUser, id }) => {
+    const navigate = useNavigate();
+
+    const handleEdit = () => {
+        navigate(`/myBlogs/${id}`)
+    };
+    const deleteRequest = async () => {
+        const res = await axios.delete(`http://localhost:4000/api/blog/${id}`);
+        const data = await res.data;
+        return data;
+    };
+
+    const handleDelete = () => {
+        deleteRequest()
+        .then(() => navigate('/'))
+        .then(() => navigate('/blogs'));
+    };
+    
   return (
     <div>
         {" "}
@@ -17,10 +37,20 @@ const Blog = ({title,description,image,userName}) => {
                 }, 
             }}
         >
+            {isUser && (
+                <Box display='flex'>
+                    <IconButton onClick={handleEdit} sx={{marginLeft: 'auto'}}>
+                        <ModeEditOutlineIcon color="warning"/>
+                    </IconButton>
+                    <IconButton onClick={handleDelete}>
+                        <DeleteForeverIcon color="error"/>
+                    </IconButton>
+                </Box>
+            )}
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-                        {userName}
+                    <Avatar sx={{ bgcolor: "dodgerblue" }} aria-label="recipe">
+                        {userName.charAt(0)}
                     </Avatar>
                 }
                 title={title}
@@ -32,8 +62,10 @@ const Blog = ({title,description,image,userName}) => {
             alt="Paella dish"
             />
             <CardContent>
+                <hr />
+                <br />
                 <Typography variant="body2" color="text.secondary">
-                    {description}
+                    <b>{ userName }: </b>{description}
                 </Typography>
             </CardContent>
         </Card>
